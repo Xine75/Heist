@@ -8,11 +8,16 @@ namespace Heist
         {
             Console.WriteLine("Plan Your Heist!");
 
-            BuildTeam();
-            void BuildTeam()
+            Console.Write("Choose a conspirator...\n>");
+            string conspirator = Console.ReadLine();
+            if (conspirator == "")
             {
-                Console.Write("Choose a conspirator...\n>");
-                string conspirator = Console.ReadLine();
+                Console.WriteLine("Your team is complete!");
+                return;
+            }
+            else
+            {
+
                 Console.WriteLine($"You have chosen {conspirator}");
 
                 Console.Write($"On a scale of 1 - 10, what is {conspirator}'s Skill Level?\n>");
@@ -23,16 +28,9 @@ namespace Heist
                 string courage = Console.ReadLine();
                 Console.WriteLine($"{conspirator}'s SKILL LEVEL is {skill} and COURAGE FACTOR IS {courage}.  You have chosen well.");
 
-                if (string.IsNullOrWhiteSpace(conspirator))
-                {
-                    Console.WriteLine("Your team is complete!");
-                    return;
-                }
-                else
-                {
-                    BuildTeam();
-                }
             }
+            continue;
         }
     }
 }
+
