@@ -18,9 +18,6 @@ namespace Heist
             var luckValue = random.Next(-10, 10);
             int bankDifficultyLevel = 100 + luckValue;
 
-            Console.WriteLine("How many times would you like to run your heist?");
-            int trialRuns = Int32.Parse(Console.ReadLine());
-
             List<Conspirator> Team = new List<Conspirator>();
 
             MakeYourTeam();
@@ -40,6 +37,8 @@ namespace Heist
                         Console.WriteLine($"{criminal.Name} has a Skill Level of {criminal.SkillLevel} and courage level of {criminal.CourageFactor}.");
                         teamSkillLevel += criminal.SkillLevel;
                     }
+                    Console.WriteLine("How many times would you like to run your heist?");
+                    int trialRuns = Int32.Parse(Console.ReadLine());
 
                     while (trialRuns > 0)
                     {
@@ -75,7 +74,7 @@ namespace Heist
 
                     Conspirator criminal = new Conspirator(conspirator, skill, courage);
                     Team.Add(criminal);
-                    trialRuns--;
+
 
                     Console.WriteLine("Choose your next teammate \n>");
                     conspirator = Console.ReadLine();
