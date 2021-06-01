@@ -9,6 +9,7 @@ namespace Heist
         static void Main(string[] args)
         {
             Console.WriteLine("Plan Your Heist!");
+
             Console.Write("Choose a conspirator...\n>");
             string conspirator = Console.ReadLine();
 
@@ -17,10 +18,13 @@ namespace Heist
             var luckValue = random.Next(-10, 10);
             int bankDifficultyLevel = 100 + luckValue;
 
+            Console.WriteLine("How many times would you like to run your heist?");
+            int trialRuns = Int32.Parse(Console.ReadLine());
 
             List<Conspirator> Team = new List<Conspirator>();
 
             MakeYourTeam();
+
             void MakeYourTeam()
             {
                 if (conspirator == "")
@@ -37,18 +41,22 @@ namespace Heist
                         teamSkillLevel += criminal.SkillLevel;
                     }
 
-                    Console.WriteLine($"Team Skill Level: {teamSkillLevel}");
-                    Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
-
-                    if (teamSkillLevel >= bankDifficultyLevel)
+                    while (trialRuns > 0)
                     {
-                        Console.WriteLine("Your heist is a success!!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Your heist is a failure!");
-                    }
+                        Console.WriteLine($"Team Skill Level: {teamSkillLevel}");
+                        Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
 
+
+                        if (teamSkillLevel >= bankDifficultyLevel)
+                        {
+                            Console.WriteLine("Your heist is a success!!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your heist is a failure!");
+                        }
+                        trialRuns--;
+                    }
                     //LINQ method
                     // teamSkillLevel = Team.Sum(x => x.SkillLevel);
                     return;
@@ -67,6 +75,7 @@ namespace Heist
 
                     Conspirator criminal = new Conspirator(conspirator, skill, courage);
                     Team.Add(criminal);
+                    trialRuns--;
 
                     Console.WriteLine("Choose your next teammate \n>");
                     conspirator = Console.ReadLine();
@@ -74,6 +83,7 @@ namespace Heist
                     MakeYourTeam();
                 }
             }
+
         }
     }
 }
