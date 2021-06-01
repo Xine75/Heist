@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Heist
 {
@@ -11,8 +12,12 @@ namespace Heist
             Console.Write("Choose a conspirator...\n>");
             string conspirator = Console.ReadLine();
 
+            int bankDifficultyLevel = 100;
+            int teamSkillLevel = 0;
+
 
             List<Conspirator> Team = new List<Conspirator>();
+
             MakeYourTeam();
             void MakeYourTeam()
             {
@@ -21,17 +26,29 @@ namespace Heist
 
                     Console.WriteLine("Your team is complete!");
                     int teamCount = Team.Count;
+
                     Console.WriteLine($"Your team has {teamCount} criminal masterminds.");
+
                     foreach (Conspirator criminal in Team)
                     {
                         Console.WriteLine($"{criminal.Name} has a Skill Level of {criminal.SkillLevel} and courage level of {criminal.CourageFactor}.");
+                        teamSkillLevel += criminal.SkillLevel;
                     }
+                    if (teamSkillLevel >= bankDifficultyLevel)
+                    {
+                        Console.WriteLine("Your heist is a success!!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your heist is a failure!");
+                    }
+
+                    //LINQ method
+                    // teamSkillLevel = Team.Sum(x => x.SkillLevel);
                     return;
                 }
                 else
                 {
-
-
                     Console.WriteLine($"You have chosen {conspirator}");
 
                     Console.Write($"On a scale of 1 - 10, what is {conspirator}'s Skill Level?\n>");
@@ -40,12 +57,14 @@ namespace Heist
 
                     Console.Write($"From 0.0 to 2.0 , what is {conspirator}'s Courage Factor?\n>");
                     double courage = Double.Parse(Console.ReadLine());
-                    Console.WriteLine($"{conspirator}'s SKILL LEVEL is {skill} and COURAGE FACTOR IS {courage}.  You have chosen well.");
+                    //Console.WriteLine($"{conspirator}'s SKILL LEVEL is {skill} and COURAGE FACTOR IS {courage}.  You have chosen well.");
 
                     Conspirator criminal = new Conspirator(conspirator, skill, courage);
                     Team.Add(criminal);
+
                     Console.WriteLine("Choose your next teammate \n>");
                     conspirator = Console.ReadLine();
+
                     MakeYourTeam();
                 }
             }
