@@ -12,8 +12,10 @@ namespace Heist
             Console.Write("Choose a conspirator...\n>");
             string conspirator = Console.ReadLine();
 
-            int bankDifficultyLevel = 100;
             int teamSkillLevel = 0;
+            var random = new Random();
+            var luckValue = random.Next(-10, 10);
+            int bankDifficultyLevel = 100 + luckValue;
 
 
             List<Conspirator> Team = new List<Conspirator>();
@@ -34,6 +36,10 @@ namespace Heist
                         Console.WriteLine($"{criminal.Name} has a Skill Level of {criminal.SkillLevel} and courage level of {criminal.CourageFactor}.");
                         teamSkillLevel += criminal.SkillLevel;
                     }
+
+                    Console.WriteLine($"Team Skill Level: {teamSkillLevel}");
+                    Console.WriteLine($"Bank Difficulty Level: {bankDifficultyLevel}");
+
                     if (teamSkillLevel >= bankDifficultyLevel)
                     {
                         Console.WriteLine("Your heist is a success!!");
